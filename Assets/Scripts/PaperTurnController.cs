@@ -1,12 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// Adds a Paper Mario style turn animation: the character "flips" by scaling X to 0
-/// and back to the opposite sign while applying a small Y squash.
-/// Call SetFacing(true) for right-facing, SetFacing(false) for left-facing, or ToggleFacing().
-/// Clean, independent, and works with 2D sprites rendered as GameObjects.
-/// </summary>
 public class PaperTurnController : MonoBehaviour
 {
     [Header("Timing")]
@@ -31,9 +25,6 @@ public class PaperTurnController : MonoBehaviour
             baseScale.x = 1f;
     }
 
-    /// <summary>
-    /// Set the desired facing. If it's different from current, plays the flip animation.
-    /// </summary>
     public void SetFacing(bool faceRight)
     {
         if (faceRight == facingRight)
@@ -42,9 +33,6 @@ public class PaperTurnController : MonoBehaviour
         StartFlip();
     }
 
-    /// <summary>
-    /// Toggle facing and animate.
-    /// </summary>
     public void ToggleFacing()
     {
         SetFacing(!facingRight);

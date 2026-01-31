@@ -1,11 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Controls top-down movement for the worm character.
-/// Movement is relative to a 45-degree rotated orthographic camera.
-/// Uses Rigidbody for physics-safe movement.
-/// </summary>
+
 [RequireComponent(typeof(CharacterController))]
 public class WormController : MonoBehaviour
 {

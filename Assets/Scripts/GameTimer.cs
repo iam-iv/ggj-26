@@ -11,9 +11,7 @@ public class GameTimer : MonoBehaviour
     private bool running = true;
     private bool expired = false;
 
-    /// <summary>
-    /// Public getter for remaining time in seconds.
-    /// </summary>
+    // Public getter for remaining time in seconds.
     public float RemainingTime => remainingTime;
 
     void Awake()
@@ -44,14 +42,14 @@ public class GameTimer : MonoBehaviour
 
     private void OnTimerExpired()
     {
-        // Player loses; restart the active scene immediately
+        // Player loses; go to scene...
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // Optional controls
-    public void StartTimer() => running = true;
-    public void StopTimer() => running = false;
-    public void ResetTimer()
+    public void StartTimer() => running = true; // in case it was stopped
+    public void StopTimer() => running = false; // pause
+    public void ResetTimer() // to initial level duration
     {
         remainingTime = Mathf.Max(0f, levelDuration);
         expired = false;

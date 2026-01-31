@@ -14,6 +14,12 @@ public class WormController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform cameraTransform;
+    [Tooltip("Optional reference to PaperTurnController to auto-animate turns")]
+    [SerializeField] private PaperTurnController paperTurnController;
+    [Tooltip("Minimum horizontal input magnitude to trigger a facing change")]
+    [SerializeField] private float facingThreshold = 0.1f;
+    [Tooltip("If true, will call PaperTurnController when horizontal input changes sign")]
+    [SerializeField] private bool autoFlip = true;
 
     private CharacterController controller;
     private Vector3 inputDirection;
@@ -24,6 +30,9 @@ public class WormController : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        if (paperTurnController == null)
+            paperTurnController = GetComponent<PaperTurnController>() ?? GetComponentInChildren<PaperTurnController>();
     }
     void Update()
     {
@@ -49,6 +58,15 @@ public class WormController : MonoBehaviour
                 horizontal = stick.x;
                 vertical = stick.y;
             }
+        }
+
+        // Auto flip the paper-style sprite when input indicates a facing change
+        if (autoFlip && paperTurnController != null)
+        {
+            if (horizontal > facingThreshold)
+                paperTurnController.SetFacing(true);
+            else if (horizontal < -facingThreshold)
+                paperTurnController.SetFacing(false);
         }
 
         // Create input vector

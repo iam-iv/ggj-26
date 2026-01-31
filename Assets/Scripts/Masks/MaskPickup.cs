@@ -43,9 +43,22 @@ namespace GGJ.Masks
                 controller.EquipMask(maskDefinition);
 
             if (destroyOnPickup)
-                Destroy(gameObject);
+            {
+                // If a PickupSpawner exists and pooling is enabled, return to pool instead of Destroy
+                var spawner = PickupSpawner.Instance;
+                if (spawner != null && spawner.usePooling)
+                {
+                    spawner.Return(gameObject, maskDefinition?.type);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+            }
             else
+            {
                 gameObject.SetActive(false);
+            }
         }
     }
 }

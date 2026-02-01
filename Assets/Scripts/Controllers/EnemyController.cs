@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using GGJ.Masks;
 using Managers;
@@ -25,6 +26,15 @@ public class EnemyController : MonoBehaviour
 
     [Header("Attack")] [SerializeField] private float catchRadius = 0.8f;
 
+    [Header("Audio")] 
+    [Tooltip("Clip to play when this enemy catches the player.")]
+    [SerializeField]
+    private AudioClip attackSound;
+
+    [Tooltip("If true, wait for the attack sound to finish before triggering Game Over.")]
+    [SerializeField]
+    private bool waitForSoundBeforeGameOver = true;
+
     [Header("Movement")] [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float chaseSpeed = 4f;
 
@@ -44,11 +54,19 @@ public class EnemyController : MonoBehaviour
     private Transform target;
     private PlayerMaskController playerMaskController;
     private CharacterController characterController;
+    private AudioSource audioSource;
     private float waitTimer;
+    private bool hasTriggeredAttack = false;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
     }
 
     private void Start()
@@ -199,7 +217,26 @@ public class EnemyController : MonoBehaviour
         // Stop moving
         MoveTowards(transform.position, 0f);
         Debug.Log("Attacking Player!!!!!");
+        if (hasTriggeredAttack) return;
+        hasTriggeredAttack = true;
+
+        if (attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+            if (waitForSoundBeforeGameOver)
+            {
+                StartCoroutine(DelayedGameOver(attackSound.length));
+                return;
+            }
+        }
+
         // Trigger Game Over
+        GameManager.Instance.TriggerGameOver(false);
+    }
+
+    private IEnumerator DelayedGameOver(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         GameManager.Instance.TriggerGameOver(false);
     }
 

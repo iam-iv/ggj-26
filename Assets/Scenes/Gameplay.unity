@@ -1013,7 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202567236}
   - component: {fileID: 202567237}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2941,7 +2941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 724868658}
   - component: {fileID: 724868659}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3279,6 +3279,7 @@ GameObject:
   - component: {fileID: 850569986}
   - component: {fileID: 850569988}
   - component: {fileID: 850569987}
+  - component: {fileID: 850569989}
   m_Layer: 3
   m_Name: Gusanito
   m_TagString: Untagged
@@ -3377,6 +3378,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &850569989
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850569985}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 960b1f2ccf29acd4f8742a7cb351277d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &855229676
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,7 +4024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1082496454}
   - component: {fileID: 1082496455}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5262,7 +5285,7 @@ GameObject:
   - component: {fileID: 1400260604}
   - component: {fileID: 1400260606}
   - component: {fileID: 1400260605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Jarron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6119,7 +6142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59585bfca52f0742b6108f3c8fe7304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTimer
-  levelDuration: 50
+  levelDuration: 60
 --- !u!4 &1605589604
 Transform:
   m_ObjectHideFlags: 0
@@ -6267,7 +6290,7 @@ GameObject:
   - component: {fileID: 1640902685}
   - component: {fileID: 1640902684}
   - component: {fileID: 1640902683}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Machete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6376,7 +6399,7 @@ GameObject:
   - component: {fileID: 1687670708}
   - component: {fileID: 1687670710}
   - component: {fileID: 1687670709}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cafe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6769,7 +6792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1893997236}
   - component: {fileID: 1893997237}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7077,6 +7100,7 @@ GameObject:
   - component: {fileID: 2082675150}
   - component: {fileID: 2082675151}
   - component: {fileID: 2082675152}
+  - component: {fileID: 2082675153}
   m_Layer: 3
   m_Name: === Gusanito ===
   m_TagString: Player
@@ -7119,6 +7143,9 @@ MonoBehaviour:
   paperTurnController: {fileID: 2082675149}
   facingThreshold: 0.1
   autoFlip: 1
+  animator: {fileID: 850569989}
+  animatorSpeedParam: Speed
+  spriteRenderer: {fileID: 850569988}
   gravity: -9.81
 --- !u!143 &2082675148
 CharacterController:
@@ -7253,6 +7280,28 @@ MonoBehaviour:
   oscAmplitude: 0.08
   oscFrequency: 2
   oscScaleWithSpeed: 1
+--- !u!95 &2082675153
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082675142}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 960b1f2ccf29acd4f8742a7cb351277d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2126366816
 GameObject:
   m_ObjectHideFlags: 0
@@ -7363,6 +7412,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1738214540908162479, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
+      propertyPath: predatorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738214540908162479, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 855229677}
@@ -7384,11 +7437,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5088945789233173556, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9238795
+      value: 0.94098306
       objectReference: {fileID: 0}
     - target: {fileID: 5088945789233173556, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.38268346
+      value: -0.33845374
       objectReference: {fileID: 0}
     - target: {fileID: 5088945789233173556, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
       propertyPath: m_LocalRotation.y
@@ -7414,6 +7467,10 @@ PrefabInstance:
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 6473564946923421490, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
+      propertyPath: matchCameraPitchAndRoll
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7473116256063651479, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -7426,7 +7483,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 196760316266158691, guid: 70b14ce316d67479c8b27d8cb1a28ca1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -7439,31 +7497,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 973645974380235832, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.79084116
-      objectReference: {fileID: 0}
-    - target: {fileID: 973645974380235832, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.61202157
-      objectReference: {fileID: 0}
-    - target: {fileID: 973645974380235832, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.000000013368349
-      objectReference: {fileID: 0}
-    - target: {fileID: 973645974380235832, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.000000017147348
-      objectReference: {fileID: 0}
     - target: {fileID: 2259791861135724118, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 330585545}
     - target: {fileID: 2644916555946439866, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: targetCamera
-      value: 
-      objectReference: {fileID: 330585545}
-    - target: {fileID: 3277522071506810873, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 330585545}
@@ -7507,30 +7545,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5801037307612778406, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6701986248556193578, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_Height
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6701986248556193578, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7110931238212812579, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
       propertyPath: m_Name
       value: Pollito Mask
       objectReference: {fileID: 0}
-    - target: {fileID: 8053248040055105690, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.000000604685
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4413411111459611007, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
-    - {fileID: 6329343269229934214, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ef80555a3fe3614ca008a4a223a9c66, type: 3}

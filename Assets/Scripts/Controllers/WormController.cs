@@ -20,6 +20,13 @@ public class WormController : MonoBehaviour
     private CharacterController controller;
     private Vector3 inputDirection;
     private float verticalVelocity = 0f;
+    [Header("Animation")]
+    [Tooltip("Animator used for player animations (optional).")]
+    [SerializeField] private Animator animator;
+    [Tooltip("Name of the float parameter used to drive Idle/Walk (default: Speed)")]
+    [SerializeField] private string animatorSpeedParam = "Speed";
+    [Tooltip("Optional SpriteRenderer if you want to flip sprite here (PaperTurnController may handle facing)")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [Header("Physics")]
     [SerializeField] private float gravity = -9.81f;
 
@@ -29,6 +36,11 @@ public class WormController : MonoBehaviour
 
         if (paperTurnController == null)
             paperTurnController = GetComponent<PaperTurnController>() ?? GetComponentInChildren<PaperTurnController>();
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     void Update()
     {
@@ -85,6 +97,14 @@ public class WormController : MonoBehaviour
 
         // Final movement direction relative to camera
         inputDirection = camForward * input.z + camRight * input.x;
+
+        // Update animator parameter based on input magnitude (works with CharacterController)
+        if (animator != null)
+        {
+            float inputMag = new Vector2(input.x, input.z).magnitude; // 0..1
+            float speedValue = inputMag * moveSpeed;
+            animator.SetFloat(animatorSpeedParam, speedValue);
+        }
 
         // Movement + gravity
         Vector3 move = inputDirection * moveSpeed;

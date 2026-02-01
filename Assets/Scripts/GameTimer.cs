@@ -42,8 +42,15 @@ public class GameTimer : MonoBehaviour
 
     private void OnTimerExpired()
     {
-        // Player loses; go to scene...
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Player loses: notify GameManager if present, otherwise reload current scene
+        if (Managers.GameManager.Instance != null)
+        {
+            Managers.GameManager.Instance.TriggerGameOver(false);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     // Optional controls

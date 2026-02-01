@@ -5,23 +5,33 @@ namespace UI
 {
     public class MainMenuController : MonoBehaviour
     {
+        [SerializeField] private SceneManagement sceneManagement;
+
+        private void Start()
+        {
+            if (sceneManagement == null)
+            {
+                sceneManagement = FindObjectOfType<SceneManagement>();
+            }
+        }
+
         public void OnPlayButtonClicked()
         {
-            if (GameManager.Instance != null)
+            if (sceneManagement != null)
             {
-                GameManager.Instance.StartNewGame();
+                sceneManagement.LoadGameScene();
             }
             else
             {
-                Debug.LogError("GameManager Instance is null! Make sure GameManager is in the scene.");
+                Debug.LogError("SceneManagement reference is missing in MainMenuController!");
             }
         }
 
         public void OnQuitButtonClicked()
         {
-            if (GameManager.Instance != null)
+            if (sceneManagement != null)
             {
-                GameManager.Instance.QuitGame();
+                sceneManagement.QuitGame();
             }
         }
     }

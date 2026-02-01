@@ -6,13 +6,12 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
-        [Header("Screens")]
-        [SerializeField] private CanvasGroupFader hudScreen;
+        [Header("Screens")] [SerializeField] private CanvasGroupFader hudScreen;
         [SerializeField] private CanvasGroupFader pauseScreen;
         [SerializeField] private CanvasGroupFader endOfGameScreen;
 
         // Track the currently visible screen so we can hide it later
-        private CanvasGroupFader _currentScreen;
+       [SerializeField] private CanvasGroupFader _currentScreen;
 
         private void Start()
         {
@@ -23,11 +22,10 @@ namespace UI
 
             _currentScreen = hudScreen;
 
-            if (Managers.GameManager.Instance != null)
-            {
-                Managers.GameManager.Instance.OnGameOver += HandleGameOver;
-                Managers.GameManager.Instance.OnGameStart += HandleGameStart;
-            }
+            if (Managers.GameManager.Instance == null) return;
+            
+            Managers.GameManager.Instance.OnGameOver += HandleGameOver;
+            Managers.GameManager.Instance.OnGameStart += HandleGameStart;
         }
 
         private void OnDestroy()
@@ -55,13 +53,13 @@ namespace UI
             if (_currentScreen == newScreen) return;
 
             // Fade out the old one
-            if (_currentScreen != null)
+            if (_currentScreen)
             {
                 _currentScreen.FadeOut();
             }
 
             // Fade in the new one
-            if (newScreen != null)
+            if (newScreen)
             {
                 newScreen.FadeIn();
                 _currentScreen = newScreen;
@@ -80,7 +78,6 @@ namespace UI
         private void ResumeGame()
         {
             SwitchTo(hudScreen);
-            // Time.timeScale = 1f;
         }
 
         private void HandleGameOver(bool win)
@@ -96,6 +93,7 @@ namespace UI
         private void ShowGameOver()
         {
             SwitchTo(endOfGameScreen);
+            Time.timeScale = 0f;
         }
     }
 }

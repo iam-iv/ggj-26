@@ -1,10 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 namespace Managers
 {
+    public struct GameSceneStruct
+    {
+        public int index;
+        public string sceneName;
+        public GameState mappedGameState;
+    }
+   
     public enum GameState
     {
         MainMenu,
@@ -17,18 +24,19 @@ namespace Managers
     {
         public static GameManager Instance { get; private set; }
 
-        [Header("Settings")]
-        [Tooltip("Name of the Main Menu Scene")]
-        [SerializeField] private string menuSceneName = "MainMenu";
-        [Tooltip("Name of the Gameplay Scene")]
-        [SerializeField] private string gameSceneName = "Gameplay";
-
         // Global State
-        [SerializeField] private GameState currentState;
+        private GameState currentState;
 
         public event Action<bool> OnGameOver;
         public event Action<GameState> OnStateChanged;
         public event Action<GameState> OnGameStart;
+
+        private Dictionary<int, GameSceneStruct> _sceneDictionary = new()
+        {
+            { 0, new GameSceneStruct { index = 0, sceneName = "MainMenu" , mappedGameState = GameState.MainMenu} },
+            { 1, new GameSceneStruct { index = 1, sceneName = "Gameplay",mappedGameState =  GameState.Gameplay} },
+
+        };
 
         private void Awake()
         {
@@ -44,18 +52,37 @@ namespace Managers
             }
         }
 
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+           if (_sceneDictionary.TryGetValue(scene.buildIndex, out var structData))
+           {
+               UpdateState(structData.mappedGameState);
+               if (structData.mappedGameState == GameState.Gameplay)
+               {
+                   OnGameStart?.Invoke(GameState.Gameplay);
+               }
+           }
+           else
+           {
+               // Fallback if scene is not in dictionary
+               if (scene.name == "MainMenu") UpdateState(GameState.MainMenu);
+               else if (scene.name == "Gameplay") UpdateState(GameState.Gameplay);
+           }
+        }
+
         private void Start()
         {
-            // Initialize state based on active scene
-            Scene currentScene = SceneManager.GetActiveScene();
-            if (currentScene.name == menuSceneName)
-            {
-                UpdateState(GameState.MainMenu);
-            }
-            else if (currentScene.name == gameSceneName)
-            {
-                UpdateState(GameState.Gameplay);
-            }
+            OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         }
 
         public void UpdateState(GameState newState)
@@ -73,38 +100,19 @@ namespace Managers
                     Time.timeScale = 0f;
                     break;
                 case GameState.GameOver:
-                    // Logic for game over state can be added here
+                    Time.timeScale = 0f;
                     break;
             }
         }
 
         /// <summary>
-        /// Called by the 'Play' button in the Menu
+        /// Trigger Game Over Logic
         /// </summary>
-        public void StartNewGame()
-        {
-            UpdateState(GameState.Gameplay);
-            OnGameStart?.Invoke(GameState.Gameplay);
-        }
-
-        /// <summary>
-        /// Called when the player reaches the goal or dies
-        /// </summary>
-        /// <param name="win">True if reached goal, False if caught/time out</param>
         public void TriggerGameOver(bool win)
         {
             UpdateState(GameState.GameOver);
-            
-            // Log for debugging before UI is ready
             Debug.Log(win ? "Game Over: YOU WON!" : "Game Over: YOU LOST!");
-
             OnGameOver?.Invoke(win);
-        }
-
-        public void LoadMainMenu()
-        {
-            UpdateState(GameState.MainMenu);
-            SceneManager.LoadScene(menuSceneName);
         }
 
         public void TogglePause()
@@ -119,10 +127,6 @@ namespace Managers
             }
         }
 
-        public void QuitGame()
-        {
-            Application.Quit();
-            Debug.Log("Quit Game"); // Visible in Editor
-        }
+        public GameState GetState() => currentState;
     }
 }

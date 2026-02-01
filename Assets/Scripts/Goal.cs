@@ -3,22 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    [Tooltip("Panel de créditos que se mostrará cuando el jugador toque la meta.")]
-    public GameObject creditsPanel;
-
     [Tooltip("Tag del objeto jugador (por defecto: Player)")]
     public string playerTag = "Player";
 
-    [Tooltip("Nombre de la escena del menú principal a cargar al cerrar los créditos")]
+    [Tooltip("Nombre de la escena del menú principal a cargar")]
     public string mainMenuSceneName = "MainMenu";
 
     bool triggered = false;
-
-    void Start()
-    {
-        if (creditsPanel != null)
-            creditsPanel.SetActive(false);
-    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -36,22 +27,13 @@ public class Goal : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             triggered = true;
-            if (creditsPanel != null)
-            {
-                creditsPanel.SetActive(true);
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                SceneManager.LoadScene(mainMenuSceneName);
-            }
+            SceneManager.LoadScene(mainMenuSceneName);
         }
     }
 
-    // Conectar este método al botón "Cerrar" del panel de créditos
-    public void CloseCredits()
+    // Método público opcional para botones
+    public void ReturnToMainMenu()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
     }
 }

@@ -27,6 +27,16 @@ public class WormController : MonoBehaviour
     [SerializeField] private string animatorSpeedParam = "Speed";
     [Tooltip("Optional SpriteRenderer if you want to flip sprite here (PaperTurnController may handle facing)")]
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [Header("Audio")]
+    [Tooltip("AudioSource used to play footstep sounds (optional).")]
+    [SerializeField] private AudioSource footstepSource;
+    [Tooltip("Footstep clips to randomize between.")]
+    [SerializeField] private AudioClip[] footstepClips;
+    [Tooltip("Footsteps per second at full input magnitude (1.0)")]
+    [SerializeField] private float stepsPerSecondAtFullSpeed = 2f;
+    [Tooltip("Minimum input magnitude to trigger footsteps")]
+    [SerializeField] private float minInputThresholdForSteps = 0.1f;
+    private float footstepTimer = 0f;
     [Header("Physics")]
     [SerializeField] private float gravity = -9.81f;
 
@@ -41,6 +51,8 @@ public class WormController : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         if (spriteRenderer == null)
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (footstepSource == null)
+            footstepSource = GetComponent<AudioSource>() ?? GetComponentInChildren<AudioSource>();
     }
     void Update()
     {
@@ -98,12 +110,33 @@ public class WormController : MonoBehaviour
         // Final movement direction relative to camera
         inputDirection = camForward * input.z + camRight * input.x;
 
-        // Update animator parameter based on input magnitude (works with CharacterController)
+        // Update animator parameter and footstep playback based on input magnitude (works with CharacterController)
+        float inputMag = new Vector2(input.x, input.z).magnitude; // 0..1
         if (animator != null)
         {
-            float inputMag = new Vector2(input.x, input.z).magnitude; // 0..1
             float speedValue = inputMag * moveSpeed;
             animator.SetFloat(animatorSpeedParam, speedValue);
+        }
+
+        // Footstep playback: decrease timer when moving and grounded, play random clip when elapsing
+        if (footstepSource != null && footstepClips != null && footstepClips.Length > 0 && controller.isGrounded)
+        {
+            if (inputMag > minInputThresholdForSteps)
+            {
+                footstepTimer -= Time.deltaTime;
+                if (footstepTimer <= 0f)
+                {
+                    var clip = footstepClips[Random.Range(0, footstepClips.Length)];
+                    footstepSource.PlayOneShot(clip);
+                    float interval = 1f / Mathf.Max(0.01f, inputMag * stepsPerSecondAtFullSpeed);
+                    footstepTimer = interval;
+                }
+            }
+            else
+            {
+                // reset so next step plays immediately when starting to move
+                footstepTimer = 0f;
+            }
         }
 
         // Movement + gravity

@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016998f1c2cc14797b168d1ec84ec31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.MainMenuController
+  sceneManagement: {fileID: 0}
 --- !u!1 &199204922
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d923e6f7b2a05432fad86c3feb2e163d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.GameManager
-  menuSceneName: MainMenu
-  gameSceneName: Gameplay
 --- !u!4 &199204924
 Transform:
   m_ObjectHideFlags: 0
@@ -913,6 +912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae3992607fc1415ab18b7fde47469a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneManagement
+  menuSceneName: MainMenu
+  gameSceneName: Gameplay
 --- !u!1 &1311732276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,9 +1299,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 112109078}
-        m_TargetAssemblyTypeName: UI.MainMenuController, Assembly-CSharp
-        m_MethodName: OnPlayButtonClicked
+      - m_Target: {fileID: 1128268837}
+        m_TargetAssemblyTypeName: Managers.SceneManagement, Assembly-CSharp
+        m_MethodName: LoadGameScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

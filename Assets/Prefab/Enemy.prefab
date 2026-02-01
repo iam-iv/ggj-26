@@ -63,7 +63,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8048471193600276675}
   - {fileID: 327009342460146079}
   m_Father: {fileID: 5088945789233173556}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -145,7 +144,7 @@ CapsuleCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
-  m_Direction: 1
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2708270095452567060
 GameObject:
@@ -158,6 +157,7 @@ GameObject:
   - component: {fileID: 8048471193600276675}
   - component: {fileID: 7473116256063651479}
   - component: {fileID: 2288028916737823030}
+  - component: {fileID: 8144904486911078603}
   m_Layer: 0
   m_Name: Pollito Sheet_0
   m_TagString: Untagged
@@ -173,12 +173,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2708270095452567060}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.38268346, y: 7.923114e-10, z: -0.00000000191904, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: -1.1800003}
+  m_LocalRotation: {x: 0.7115747, y: 0.18653172, z: -0.022440266, w: 0.67702574}
+  m_LocalPosition: {x: 0, y: 1.1800008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5438678396683741774}
+  m_Father: {fileID: 5088945789233173556}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: -5.8}
 --- !u!212 &7473116256063651479
 SpriteRenderer:
@@ -261,6 +261,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8144904486911078603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708270095452567060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14c2df560a69294c952f80a5e7199d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteTiltToCamera
+  targetCamera: {fileID: 0}
+  eulerOffset: {x: 0, y: 0, z: 0}
+  smooth: 10
+  preserveYaw: 0
+  matchCameraPitchAndRoll: 1
 --- !u!1 &7897828727015835710
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +287,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5088945789233173556}
-  - component: {fileID: 6473564946923421490}
   - component: {fileID: 1738214540908162479}
   - component: {fileID: 7211310951563286168}
   - component: {fileID: 196760316266158691}
@@ -294,26 +310,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8048471193600276675}
   - {fileID: 5438678396683741774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6473564946923421490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897828727015835710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14c2df560a69294c952f80a5e7199d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteTiltToCamera
-  targetCamera: {fileID: 0}
-  eulerOffset: {x: 0, y: 0, z: 0}
-  smooth: 10
-  preserveYaw: 1
-  matchCameraPitchAndRoll: 1
 --- !u!114 &1738214540908162479
 MonoBehaviour:
   m_ObjectHideFlags: 0

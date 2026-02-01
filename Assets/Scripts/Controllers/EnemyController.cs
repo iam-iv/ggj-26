@@ -198,7 +198,7 @@ public class EnemyController : MonoBehaviour
     {
         // Stop moving
         MoveTowards(transform.position, 0f);
-
+        Debug.Log("Attacking Player!!!!!");
         // Trigger Game Over
         GameManager.Instance.TriggerGameOver(false);
     }
@@ -208,7 +208,14 @@ public class EnemyController : MonoBehaviour
         if (patrolPoints == null || patrolPoints.Length == 0) return;
 
         Transform wp = patrolPoints[currentPatrolIndex];
-        float distToWaypoint = Vector3.Distance(transform.position, wp.position);
+        
+        // Use horizontal distance check (ignore Y height differences)
+        Vector3 enemyPos = transform.position;
+        Vector3 targetPos = wp.position;
+        enemyPos.y = 0;
+        targetPos.y = 0;
+        
+        float distToWaypoint = Vector3.Distance(enemyPos, targetPos);
 
         if (distToWaypoint < 0.5f)
         {
